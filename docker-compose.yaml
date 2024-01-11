@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: host
+      POSTGRES_DB: movies_app
+    ports:
+      - '5432:5432'
